@@ -29,10 +29,10 @@ tr.tot td{font-weight:700;border-top:2px solid var(--b)}.empty{color:var(--mut);
 .kpis{grid-template-columns:1fr 1fr}.br{grid-template-columns:1fr 90px}.br .bt{grid-column:1/3;grid-row:2}select{font-size:16px}table{font-size:13px}.card{padding:12px}}
 .shg{border-collapse:separate;border-spacing:0}.shg td,.shg th{vertical-align:top;white-space:normal}.shg .thc{position:sticky;left:0;background:var(--card);z-index:2;min-width:150px;max-width:180px;font-weight:600;font-size:12px}
 .cityh{background:#12152a!important;color:var(--acc);font-weight:700;text-transform:uppercase;font-size:11px;position:sticky;left:0}
-.sbs{display:flex;flex-wrap:wrap;gap:6px;min-width:200px}.sb{width:92px;background:#12152a;border:1px solid;border-left-width:4px;border-radius:8px;padding:6px;cursor:pointer;font-size:11px}
-.sb .st{font-weight:700;color:var(--fg)}.sb .sp{font-size:20px;font-weight:800;line-height:1.2}.sb .bt{height:6px;margin:3px 0}.sm{color:var(--mut)}.cats{margin-top:4px;border-top:1px solid var(--b);padding-top:4px;color:var(--mut)}.cats>div{margin:3px 0}
+.sbs{display:flex;flex-wrap:wrap;gap:6px;min-width:200px}.sb{width:64px;background:#12152a;border:1px solid;border-left-width:4px;border-radius:8px;padding:6px;cursor:pointer;font-size:11px}
+.sb .st{font-weight:700;color:var(--fg)}.sb .sp{font-size:16px;font-weight:800;line-height:1.2}.sb .bt{height:6px;margin:3px 0}.sm{color:var(--mut)}.sb:has(.cats:not([hidden])){width:150px}.cats{margin-top:4px;border-top:1px solid var(--b);padding-top:4px;color:var(--mut)}.cats>div{margin:3px 0}
 .none{color:var(--mut)}.leg{font-size:11px;color:var(--mut);margin:6px 0 10px}.leg span{margin-right:8px;white-space:nowrap}
-@media(max-width:700px){.shg .thc{min-width:96px;max-width:110px;font-size:11px}.sbs{min-width:0}.sb{width:84px}}
+@media(max-width:700px){.shg .thc{min-width:96px;max-width:110px;font-size:11px}.sbs{min-width:0}.sb{width:60px}}
 .dayt .sf{position:sticky;left:0;background:var(--card);z-index:1}.dayt .dg{text-align:center;border-left:1px solid var(--b)}.dayt .gb{border-right:1px solid var(--b)}
 </style></head><body>
 <header><div><h1>🎬 Puja 2026 · Advance Booking Tracker</h1><div class="sub">District (all shows) + BookMyShow · West Bengal · 15–18 Oct</div></div><div class="ts" id="ts"></div></header>
@@ -105,8 +105,7 @@ function vShow(rs){const fl=filmList();if(fs.film)subFilm=fs.film;if(!fl.include
  const box=o=>{const p=o.a.seats?100*o.a.sold/o.a.seats:0,c=occCol(p),id='b'+Math.random().toString(36).slice(2);
   return `<div class="sb" style="border-color:${c}" onclick="document.getElementById('${id}').hidden^=1"><div class="st">${o.x.showtime}${o.x.src&&o.x.src.startsWith('BMS')?' <span class="est">est</span>':''}</div>
   <div class="sp" style="color:${c}">${p.toFixed(0)}%</div><div class="bt"><i style="width:${Math.min(100,p)}%;background:${c}"></i></div>
-  <div class="sm">${num(o.a.sold)}/${num(o.a.seats)}</div><div class="sm">${inr(o.a.gross)}</div>
-  <div id="${id}" class="cats" hidden>${o.r.map(z=>`<div>${z.category} · ${inr(z.price)}<br>${num(z.sold)}/${num(z.total)}<div class="bt"><i style="width:${z.total?100*z.sold/z.total:0}%;background:${c}"></i></div></div>`).join('')}</div></div>`};
+  <div id="${id}" class="cats" hidden><div>${num(o.a.sold)}/${num(o.a.seats)} · ${inr(o.a.gross)}</div>${o.r.map(z=>`<div>${z.category} · ${inr(z.price)}<br>${num(z.sold)}/${num(z.total)}<div class="bt"><i style="width:${z.total?100*z.sold/z.total:0}%;background:${c}"></i></div></div>`).join('')}</div></div>`};
  let lastCity='';const body=th.map(t=>{const hd=cm[t]!=lastCity?`<tr><td class="cityh" colspan="${cols.length+1}">${lastCity=cm[t]}</td></tr>`:'';
   return hd+`<tr><td class="thc">${t}</td>${cols.map(d=>`<td><div class="sbs">${S.filter(o=>o.x.cinema==t&&o.x.date==d).sort((a,b)=>a.x.showtime.localeCompare(b.x.showtime)).map(box).join('')||'<span class="none">–</span>'}</div></td>`).join('')}</tr>`}).join('');
  const chips=narrow&&ds.length>1?`<div class="sub" id="dchips">${ds.map(d=>`<button data-d="${d}" class="${d==shDate?'on':''}">${dl(d)}</button>`).join('')}</div>`:'';
